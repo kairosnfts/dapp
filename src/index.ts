@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { DeferPromise, EmbeddedRequestKind, EmbeddedResponseKind, OnBidErrorArgs, OnBidSuccessArgs } from './types'
 
 const ROOT_URLS = {
-  development: 'http://localhost:3000',
+  development: 'https://dev.kairos.art',
   staging: 'https://beta.kairos.art',
   production: 'https://kairos.art',
 }
@@ -277,11 +277,13 @@ const KairosInternal = {
 }
 
 // ====== Exports ========
-export const init = KairosInternal.init
-export const destroy = KairosInternal.destroy
-export const close = KairosInternal.close
-export const startBid = KairosInternal.startBid
-export const isLoggedIn = KairosInternal.isLoggedIn
-export const getSessionCookie = KairosInternal.getSessionCookie
-export const logIn = KairosInternal.logIn
-export const logOut = KairosInternal.destroySession
+export const kairos = {
+  init: KairosInternal.init,
+  destroy: KairosInternal.destroy,
+  close: KairosInternal.close,
+  startBid: KairosInternal.startBid,
+  isLoggedIn: KairosInternal.isLoggedIn,
+  getSessionCookie: KairosInternal.getSessionCookie,
+  logIn: KairosInternal.logIn,
+  logOut: KairosInternal.destroySession,
+}

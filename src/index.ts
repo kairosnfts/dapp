@@ -310,3 +310,5 @@ export const Kairos = {
   logOut: KairosInternal.destroySession,
   getCurrentUser: KairosInternal.getCurrentUser,
 }
+
+export * from './types'

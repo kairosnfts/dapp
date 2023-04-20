@@ -2,7 +2,7 @@
   "name": "@kairosnfts/dapp",
   "version": "1.0.0",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",  
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "postinstall": "yarn run build",
@@ -13,6 +13,7 @@
     "js-cookie": "^3.0.1"
   },
   "devDependencies": {
+    "tsc": "^2.0.4",
     "typescript": "^5.0.4"
   }
 }

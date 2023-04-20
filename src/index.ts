@@ -277,7 +277,7 @@ const KairosInternal = {
 }
 
 // ====== Exports ========
-export const kairos = {
+export const Kairos = {
   init: KairosInternal.init,
   destroy: KairosInternal.destroy,
   close: KairosInternal.close,

@@ -299,7 +299,7 @@ const KairosInternal = {
 }
 
 // ====== Exports ========
-export default {
+const Kairos = {
   init: KairosInternal.init,
   destroy: KairosInternal.destroy,
   close: KairosInternal.close,
@@ -310,3 +310,4 @@ export default {
   logOut: KairosInternal.destroySession,
   getCurrentUser: KairosInternal.getCurrentUser,
 }
+export default Kairos

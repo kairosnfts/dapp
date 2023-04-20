@@ -46,4 +46,16 @@ export enum EmbeddedResponseKind {
   COOKIE_INTEGRITY = 'COOKIE_INTEGRITY',
 }
 
+export type Wallet = {
+  pubkey: string,
+  id: string,
+  isCustody: boolean,
+}
+
+export type User = {
+  wallet: Wallet,
+  email: string,
+  id: string,
+}
+
 export type DeferPromise<T> = Promise<T> & { resolve: (value: T) => void, reject: (value: T) => void }

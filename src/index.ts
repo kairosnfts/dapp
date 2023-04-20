@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { DeferPromise, EmbeddedRequestKind, EmbeddedResponseKind, OnBidErrorArgs, OnBidSuccessArgs } from './types'
+import { DeferPromise, EmbeddedRequestKind, EmbeddedResponseKind, OnBidErrorArgs, OnBidSuccessArgs, User } from './types'
 
 const ROOT_URLS = {
   development: 'https://dev.kairos.art',
@@ -8,6 +8,7 @@ const ROOT_URLS = {
 }
 
 const KairosInternal = {
+  currentUser: undefined as (User | undefined),
   env: 'development',
   kairosSessionCookieName: '__kairosSessionToken',
   kairosIframeName: '__kairosEmbed',
@@ -255,6 +256,14 @@ const KairosInternal = {
           session(sessionToken: $sessionToken) {
             id
             userId
+            wallet {
+              id
+              pubkey
+              isCustody
+            }
+            user {
+              email
+            }
             __typename
           }
         }`,
@@ -265,6 +274,15 @@ const KairosInternal = {
     })
     const session = await response.json()
     if (session.data.session) {
+      KairosInternal.currentUser = {
+        id: session.data.session.userId,
+        email: session.data.session.user?.email,
+        wallet: {
+          pubkey: session.data.session.wallet?.pubkey,
+          isCustody: session.data.session.wallet?.isCustody,
+          id: session.data.session.wallet?.id,
+        }
+      }
       return true
     }
     Cookies.remove(KairosInternal.kairosSessionCookieName, { domain: KairosInternal.kairosCookieDomain })
@@ -274,10 +292,14 @@ const KairosInternal = {
   logIn: () => {
     window.open(`${ROOT_URLS[KairosInternal.env]}/${KairosInternal.slug}/verify?hasSuccessRedirect=true`, '_self')
   },
+
+  getCurrentUser: () => {
+    return KairosInternal.currentUser
+  }
 }
 
 // ====== Exports ========
-export const Kairos = {
+export default {
   init: KairosInternal.init,
   destroy: KairosInternal.destroy,
   close: KairosInternal.close,
@@ -286,4 +308,5 @@ export const Kairos = {
   getSessionCookie: KairosInternal.getSessionCookie,
   logIn: KairosInternal.logIn,
   logOut: KairosInternal.destroySession,
+  getCurrentUser: KairosInternal.getCurrentUser,
 }

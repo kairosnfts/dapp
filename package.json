@@ -11,9 +11,8 @@
   },
   "dependencies": {
     "js-cookie": "^3.0.1",
-    "tsc": "^2.0.4"
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
   }
 }

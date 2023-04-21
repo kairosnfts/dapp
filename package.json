@@ -1,6 +1,6 @@
 {
   "name": "@kairosnfts/dapp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {},
   "exports": {
-    "./react/": "./dist/react/"
+    "./react/": "./dist/react/",
+    "./types/": "./dist/types.js"
   }
 }

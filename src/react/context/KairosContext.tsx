@@ -1,6 +1,7 @@
 
 import React, { createContext, useEffect, useState } from 'react'
-import { Kairos, User } from '../../index'
+import { Kairos } from '../../index'
+import { User } from '../../types'
 
 export type KairosContextType = {
   isKairosScriptLoaded: boolean

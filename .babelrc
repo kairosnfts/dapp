@@ -14,7 +14,9 @@
       }
     ],
     "@babel/preset-react",
-    "@babel/preset-typescript",
-    "@babel/transform-runtime plugin"
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
   ]
  }

@@ -60,13 +60,13 @@ export const KairosProvider = ({
       hasLogs,
       slug,
       onLogIn: () => {
-        // refetchLogin()
-        // onLogIn?.()
+        refetchLogin()
+        onLogIn?.()
       },
       onLogOut: () => {
-        // setIsLoggedIn(false)
-        // setCurrentUser(undefined)
-        // onLogOut?.()
+        setIsLoggedIn(false)
+        setCurrentUser(undefined)
+        onLogOut?.()
       },
     })
 
@@ -77,9 +77,9 @@ export const KairosProvider = ({
     loadKairos()
   }, [])
 
-  // useEffect(() => {
-  //   if (isLoaded) refetchLogin()
-  // }, [isLoaded])
+  useEffect(() => {
+    if (isLoaded) refetchLogin()
+  }, [isLoaded])
 
   const value = {
     isKairosScriptLoaded: isLoaded,

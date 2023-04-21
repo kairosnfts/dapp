@@ -28,12 +28,12 @@ const KairosInternal = {
   onLogIn: undefined as () => void,
   onLogOut: undefined as () => void,
 
-  defer: async <T>() => {
+  defer: <T>() => {
     const d = {}
-    return await (Object.assign(
+    return Object.assign(
       new Promise((resolve, reject) => Object.assign(d, { resolve, reject })),
       d
-    ) as DeferPromise<T>)
+    ) as DeferPromise<T>
   },
 
   postIframeMessage: (
@@ -220,8 +220,7 @@ const KairosInternal = {
   checkCookieIntegrity: async () => {
     const iframe = await KairosInternal.getOrCreateIframe()
     const sessionToken = KairosInternal.getSessionCookie()
-    KairosInternal.integrityDefer =
-      KairosInternal.defer() as DeferPromise<boolean>
+    KairosInternal.integrityDefer = KairosInternal.defer()
     KairosInternal.postIframeMessage(
       iframe,
       EmbeddedRequestKind.CHECK_COOKIE_INTEGRITY,
@@ -284,9 +283,7 @@ const KairosInternal = {
       nftId,
       isLoginRequired,
     })
-    KairosInternal.bidDefer = KairosInternal.defer() as DeferPromise<
-      OnBidSuccessArgs | OnBidErrorArgs
-    >
+    KairosInternal.bidDefer = KairosInternal.defer()
     KairosInternal.hasLogs &&
       console.log(
         `%cKairos bid start %cnftId: ${nftId}`,

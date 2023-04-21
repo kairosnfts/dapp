@@ -59,3 +59,9 @@ export type User = {
 }
 
 export type DeferPromise<T> = Promise<T> & { resolve: (value: T) => void, reject: (value: T) => void }
+
+export enum KairosEnv {
+  production = 'production',
+  staging = 'staging',
+  development = 'development',
+}

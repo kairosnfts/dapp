@@ -137,6 +137,7 @@ const KairosInternal = {
           expires: 14, // days
         }
       )
+      KairosInternal.onLogIn?.()
       KairosInternal.hasLogs &&
         console.log(
           '%cKairos session updated',

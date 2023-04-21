@@ -19,7 +19,17 @@
   },
   "devDependencies": {},
   "exports": {
-    "./react/": "./dist/react/",
-    "./types/": "./dist/types.js"
+    "./react/": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      }
+    },
+    "./types/": {
+      "import": {
+        "types": "./dist/types.d.ts",
+        "default": "./dist/types.js"
+      }
+    }
   }
 }

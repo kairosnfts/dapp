@@ -47,8 +47,15 @@ export const KairosProvider = ({
       env,
       hasLogs,
       slug,
-      onLogIn,
-      onLogOut,
+      onLogIn: () => {
+        refetchLogin()
+        onLogIn()
+      },
+      onLogOut: () => {
+        setIsLoggedIn(false)
+        setCurrentUser(undefined)
+        onLogOut()
+      },
     })
 
     setIsLoaded(true)

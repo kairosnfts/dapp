@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
 import React, { createContext, useEffect, useState } from 'react'
 import { Kairos } from '../../index'
-import { KairosEnv, User } from '../../types'
+import { type KairosEnv, type User } from '../../types'
 
-export type KairosContextType = {
+export interface KairosContextType {
   isKairosScriptLoaded: boolean
   isLoggedIn: boolean | undefined
   isLoginLoading: boolean
@@ -22,11 +22,18 @@ export const KairosContext = createContext<KairosContextType>({
   setIsLoaded: (loaded) => {},
 })
 
-export const KairosProvider = ({ children, env, hasLogs, slug, onLogIn, onLogOut }: { 
-  children: any 
+export const KairosProvider = ({
+  children,
+  env,
+  hasLogs,
+  slug,
+  onLogIn,
+  onLogOut,
+}: {
+  children: any
   slug: string
   hasLogs: boolean
-  env: KairosEnv,
+  env: KairosEnv
   onLogIn: () => void
   onLogOut: () => void
 }) => {
@@ -42,7 +49,7 @@ export const KairosProvider = ({ children, env, hasLogs, slug, onLogIn, onLogOut
       slug,
       onLogIn,
       onLogOut,
-    })  
+    })
 
     setIsLoaded(true)
   }

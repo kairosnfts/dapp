@@ -47,18 +47,21 @@ export enum EmbeddedResponseKind {
 }
 
 export type Wallet = {
-  pubkey: string,
-  id: string,
-  isCustody: boolean,
+  pubkey: string
+  id: string
+  isCustody: boolean
 }
 
 export type User = {
-  wallet: Wallet,
-  email: string,
-  id: string,
+  wallet: Wallet
+  email: string
+  id: string
 }
 
-export type DeferPromise<T> = Promise<T> & { resolve: (value: T) => void, reject: (value: T) => void }
+export type DeferPromise<T> = Promise<T> & {
+  resolve: (value: T) => void
+  reject: (value: T) => void
+}
 
 export enum KairosEnv {
   production = 'production',

@@ -77,9 +77,9 @@ export const KairosProvider = ({
     loadKairos()
   }, [])
 
-  useEffect(() => {
-    if (isLoaded) refetchLogin()
-  }, [isLoaded])
+  // useEffect(() => {
+  //   if (isLoaded) refetchLogin()
+  // }, [isLoaded])
 
   const value = {
     isKairosScriptLoaded: isLoaded,

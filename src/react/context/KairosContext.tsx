@@ -64,9 +64,9 @@ export const KairosProvider = ({
         // onLogIn?.()
       },
       onLogOut: () => {
-        setIsLoggedIn(false)
-        setCurrentUser(undefined)
-        onLogOut?.()
+        // setIsLoggedIn(false)
+        // setCurrentUser(undefined)
+        // onLogOut?.()
       },
     })
 

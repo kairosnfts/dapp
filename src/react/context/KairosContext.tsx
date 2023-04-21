@@ -60,8 +60,9 @@ export const KairosProvider = ({
       hasLogs,
       slug,
       onLogIn: () => {
-        refetchLogin()
         onLogIn?.()
+        setIsLoggedIn(true)
+        setCurrentUser(Kairos.getCurrentUser())
       },
       onLogOut: () => {
         setIsLoggedIn(false)

@@ -19,16 +19,14 @@
   },
   "devDependencies": {},
   "exports": {
-    "./react/": {
+    ".": {
+      "require": {
+        "types": "./dist/*d.ts",
+        "default": "./dist/*.js"
+      },
       "import": {
-        "types": "./dist/react/index.d.ts",
-        "default": "./dist/react/index.js"
-      }
-    },
-    "./types/": {
-      "import": {
-        "types": "./dist/types.d.ts",
-        "default": "./dist/types.js"
+        "types": "./dist/*d.ts",
+        "default": "./dist/*.js"
       }
     }
   }

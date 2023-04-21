@@ -2,7 +2,7 @@
 
 import React, { createContext, useEffect, useState } from 'react'
 import { Kairos } from '../../index'
-import { User } from '../../types'
+import { KairosEnv, User } from '../../types'
 
 export type KairosContextType = {
   isKairosScriptLoaded: boolean
@@ -22,11 +22,30 @@ export const KairosContext = createContext<KairosContextType>({
   setIsLoaded: (loaded) => {},
 })
 
-export const KairosProvider = ({ children }: { children: any }) => {
+export const KairosProvider = ({ children, env, hasLogs, slug, onLogIn, onLogOut }: { 
+  children: any 
+  slug: string
+  hasLogs: boolean
+  env: KairosEnv,
+  onLogIn: () => void
+  onLogOut: () => void
+}) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [isLoginLoading, setIsLoginLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined)
+
+  const loadKairos = async () => {
+    await Kairos.init({
+      env,
+      hasLogs,
+      slug,
+      onLogIn,
+      onLogOut,
+    })  
+
+    setIsLoaded(true)
+  }
 
   const refetchLogin = async () => {
     setIsLoginLoading(true)
@@ -37,6 +56,10 @@ export const KairosProvider = ({ children }: { children: any }) => {
       setCurrentUser(Kairos.getCurrentUser())
     }
   }
+
+  useEffect(() => {
+    loadKairos()
+  }, [])
 
   useEffect(() => {
     if (isLoaded) refetchLogin()

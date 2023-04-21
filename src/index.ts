@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { DeferPromise, EmbeddedRequestKind, EmbeddedResponseKind, OnBidErrorArgs, OnBidSuccessArgs, User } from './types'
+import { KairosEnv, DeferPromise, EmbeddedRequestKind, EmbeddedResponseKind, OnBidErrorArgs, OnBidSuccessArgs, User } from './types'
 
 const ROOT_URLS = {
   development: 'https://dev.kairos.art',
@@ -9,7 +9,7 @@ const ROOT_URLS = {
 
 const KairosInternal = {
   currentUser: undefined as (User | undefined),
-  env: 'development',
+  env: KairosEnv.development,
   kairosSessionCookieName: '__kairosSessionToken',
   kairosIframeName: '__kairosEmbed',
   kairosCookieDomain: '',
@@ -141,13 +141,13 @@ const KairosInternal = {
    * Creates the iframe and adds event listeners
    */
   init: async ({ slug, hasLogs, env, onLogIn, onLogOut }: { 
-    env: 'production' | 'development' | 'staging',
+    env: KairosEnv,
     slug: string, 
     hasLogs: boolean, 
     onLogIn: () => void, 
     onLogOut: () => void 
   }) => {
-    KairosInternal.env = env || 'development'
+    KairosInternal.env = env || KairosEnv.development
     KairosInternal.hasLogs = hasLogs
     KairosInternal.slug = slug
     KairosInternal.onLogIn = onLogIn

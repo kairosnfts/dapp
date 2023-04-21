@@ -1,0 +1,26 @@
+{
+  "name": "@kairosnfts/dapp",
+  "version": "1.0.5",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "postinstall": "yarn run build",
+    "prepare": "npm run build",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@types/react": "18.0.35",
+    "@types/react-dom": "18.0.11",
+    "js-cookie": "^3.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+
+  }
+}

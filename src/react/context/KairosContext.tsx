@@ -54,5 +54,3 @@ export const KairosProvider = ({ children }: { children: any }) => {
     <KairosContext.Provider value={value}>{children}</KairosContext.Provider>
   )
 }
-
-export default KairosProvider

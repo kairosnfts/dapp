@@ -17,17 +17,5 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4"
   },
-  "devDependencies": {},
-  "exports": {
-    ".": {
-      "require": {
-        "types": "./dist/*d.ts",
-        "default": "./dist/*.js"
-      },
-      "import": {
-        "types": "./dist/*d.ts",
-        "default": "./dist/*.js"
-      }
-    }
-  }
+  "devDependencies": {}
 }

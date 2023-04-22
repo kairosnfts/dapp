@@ -32,29 +32,19 @@ export const KairosProvider = ({
 }: {
   children: any
   slug: string
-  hasLogs: boolean
   env: KairosEnv
-  onLogIn: () => void
-  onLogOut: () => void
+  hasLogs?: boolean
+  onLogIn?: () => void
+  onLogOut?: () => void
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [isLoginLoading, setIsLoginLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined)
 
-  const loadKairos = async () => {
-    await Kairos.init({
-      env,
-      hasLogs,
-      slug,
-      onLogIn,
-      onLogOut,
-    })
-
-    setIsLoaded(true)
-  }
-
   const refetchLogin = async () => {
+    if (!isLoaded) return
+
     setIsLoginLoading(true)
     const loginStatus = await Kairos.isLoggedIn(true)
     setIsLoggedIn(loginStatus)
@@ -62,6 +52,26 @@ export const KairosProvider = ({
     if (loginStatus) {
       setCurrentUser(Kairos.getCurrentUser())
     }
+  }
+
+  const loadKairos = async () => {
+    await Kairos.init({
+      env,
+      hasLogs,
+      slug,
+      onLogIn: () => {
+        onLogIn?.()
+        setIsLoggedIn(true)
+        setCurrentUser(Kairos.getCurrentUser())
+      },
+      onLogOut: () => {
+        setIsLoggedIn(false)
+        setCurrentUser(undefined)
+        onLogOut?.()
+      },
+    })
+
+    setIsLoaded(true)
   }
 
   useEffect(() => {

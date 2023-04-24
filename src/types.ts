@@ -19,7 +19,6 @@ export type OnBidSuccessArgs = {
   txId: string
   txHash: string
   nftId: string
-  code: ContractStatusCode
   userPubkey: string
 }
 

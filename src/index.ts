@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { User, Wallet } from './gql'
 import {
   KairosEnv,
   type DeferPromise,
@@ -6,7 +7,6 @@ import {
   EmbeddedResponseKind,
   type OnBidErrorArgs,
   type OnBidSuccessArgs,
-  type User,
 } from './types'
 
 const ROOT_URLS = {
@@ -16,7 +16,7 @@ const ROOT_URLS = {
 }
 
 const KairosInternal = {
-  currentUser: undefined as User | undefined,
+  currentUser: undefined as (User & { wallet: Wallet }) | undefined,
   env: KairosEnv.development,
   kairosSessionCookieName: '__kairosSessionToken',
   kairosIframeName: '__kairosEmbed',
@@ -404,3 +404,4 @@ export const Kairos = {
 
 export * from './types'
 export * from './react'
+export * from './gql'

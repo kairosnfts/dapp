@@ -1,14 +1,14 @@
 'use client'
 
 import React, { createContext, useEffect, useState } from 'react'
-import { Kairos } from '../../index'
-import { type KairosEnv, type User } from '../../types'
+import { Kairos, User, Wallet } from '../../index'
+import { type KairosEnv } from '../../types'
 
 export interface KairosContextType {
   isKairosScriptLoaded: boolean
   isLoggedIn: boolean | undefined
   isLoginLoading: boolean
-  currentUser: User | undefined
+  currentUser: (User & { wallet: Wallet }) | undefined
   refetchLogin: () => void
   setIsLoaded: (loaded: boolean) => void
 }
@@ -40,7 +40,9 @@ export const KairosProvider = ({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [isLoginLoading, setIsLoginLoading] = useState<boolean>(true)
-  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined)
+  const [currentUser, setCurrentUser] = useState<
+    (User & { wallet: Wallet }) | undefined
+  >(undefined)
 
   const refetchLogin = async () => {
     if (!isLoaded) return

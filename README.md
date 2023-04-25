@@ -1,11 +1,60 @@
 # Kairos Dapp Library
 
-A library to interact with your [Kairos](https://kairos.art) collection. 
+A Javascript library to interact with your [Kairos](https://kairos.art) collection on the client. It works by creating an iframe, which acts as a middleman between the client and Kairos. 
+
+The iframe can:
+
+- Open modals to facilitate NFT purchases
+- Direct users to Kairos verification pages
+- Provide authentication by checking if the user holds an NFT of a collection
+- Provide authenticated user information
+- Log users out
+
+> **NOTE:** This library does *not* create or update NFTs. For that, you must use the [Kairos API](https://api.kairos.art/), which should only be used server-side.
 
 ## Getting Started
 
 ```bash
 yarn add kairosnfts/dapp
+```
+
+On initialization, the iframe will automatically be created, and include event listeners that get passed along to the parent `window`. If you're using React, use the React helpers to initialize the library with the `KairosProvider`. If you're using another framework, or plain Javascript, you can initialize this way:
+
+```js
+<script src="https://kairos.art/assets/dapp.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    await window.Kairos.init({
+      env: 'staging',
+      slug: 'bonsai-demo',
+      hasLogs: true,
+    })
+  })
+</script>
+```
+
+## Usage
+
+After initialization, you will have the following properties and methods available on the `window.Kairos` object:
+
+```
+{
+  init: ({ slug, hasLogs, env, onLogIn, onLogOut, }: {
+    env: KairosEnv
+    slug: string
+    hasLogs: boolean
+    onLogIn: () => void
+    onLogOut: () => void
+  }) => Promise<void>
+  destroy: () => void
+  close: () => Promise<void>
+  startBid: (nftId: string) => Promise<OnBidSuccessArgs | OnBidErrorArgs>
+  isLoggedIn: (checkSessionExpired?: boolean) => Promise<boolean>
+  getSessionCookie: () => any
+  logIn: () => void
+  logOut: () => Promise<void>
+  getCurrentUser: () => User
+}
 ```
 
 ## React Helpers

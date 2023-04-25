@@ -12,6 +12,9 @@ The iframe can:
 
 > **NOTE:** This library does *not* create or update NFTs. For that, you must use the [Kairos API](https://api.kairos.art/), which should only be used server-side.
 
+<img width="800" alt="Screenshot 2023-04-25 at 4 11 04 PM" src="https://user-images.githubusercontent.com/6920066/234405082-1a484cf6-8a2a-4355-88e0-9fb3bee11583.png">
+
+
 ## Getting Started
 
 ```bash
@@ -26,7 +29,7 @@ On initialization, the iframe will automatically be created, and include event l
   document.addEventListener('DOMContentLoaded', async () => {
     await window.Kairos.init({
       env: 'staging',
-      slug: 'bonsai-demo',
+      slug: 'YOUR_KAIROS_COLLECTION_SLUG',
       hasLogs: true,
     })
   })
@@ -148,6 +151,15 @@ export default function ChildComponent() {
 | ------ | --------- | ----- |
 | `refetchLogin` | None | Manually refresh the login status from Kairos, which will trigger changes to `isLoginLoading` and `isLoggedIn` |
 
-## Typescript Support
+## Types
 
 TBD
+
+## Support
+
+If you have any questions, or need help while implementing the library within your own project, please don't hesitate to reach out to us at Kairos. We're here to help make your NFT integration as smooth as possible.
+
+### Relevant Links
+
+- [Kairos API documentation](https://api.kairos.art/)
+- [Example dapp using dynamic NFTs](https://github.com/kairosnfts/sample-dynamic-nfts)

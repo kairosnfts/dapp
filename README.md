@@ -36,7 +36,25 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-This would then wrap all components in the root of the project. Now, within a client-side component (one that has access to React context), you can use the Kairos context.
+This would then wrap all components in the root of the project. In the case of Next.js, it could look like this in the root `layout.tsx`:
+
+```js
+import Providers from './Providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+Now, within a client-side component (one that has access to React context), you can use the Kairos context.
 
 ```js
 import { useContext } from 'react'

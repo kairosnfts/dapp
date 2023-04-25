@@ -45,18 +45,6 @@ export enum EmbeddedResponseKind {
   COOKIE_INTEGRITY = 'COOKIE_INTEGRITY',
 }
 
-export type Wallet = {
-  pubkey: string
-  id: string
-  isCustody: boolean
-}
-
-export type User = {
-  wallet: Wallet
-  email: string
-  id: string
-}
-
 export type DeferPromise<T> = Promise<T> & {
   resolve: (value: T) => void
   reject: (value: T) => void
@@ -66,4 +54,50 @@ export enum KairosEnv {
   production = 'production',
   staging = 'staging',
   development = 'development',
+}
+
+/**
+ * Exported API Types
+ */
+
+type UUID = string
+type URI = string
+type PubkeyBase58 = string
+type MetadataTraitValue = string | number
+
+export type Wallet = {
+  id: UUID
+  pubkey: PubkeyBase58
+  isCustody: boolean
+}
+
+export type User = {
+  id: UUID
+  email: string
+  wallet: Wallet
+}
+
+export type MetadataPatch = {
+  description: string
+  external_url: URI
+  image: string
+  attributes: {
+    trait_type: string
+    value: MetadataTraitValue
+  }[]
+}
+
+export type Nft = {
+  id: UUID
+  name: string
+  description: string
+  collectionId: UUID
+  mintPubkey: PubkeyBase58
+  metadataPatch: MetadataPatch
+}
+
+export type Ownership = {
+  id: UUID
+  nftId: UUID
+  nft: Nft
 }

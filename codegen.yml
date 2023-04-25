@@ -1,0 +1,30 @@
+overwrite: true
+schema:
+  - 'https://beta.kairos.art/public/graphql'
+generates:
+  ./src/gql/index.ts:
+    plugins:
+      - add:
+          content: |
+            /* eslint-disable */
+            /*********************************************/
+            /*  This file is auto-generated.             */
+            /*  See codegen.yml to contribute to it.     */
+            /*********************************************/
+      - 'typescript'
+      - add:
+          content: |
+            export type UUID = Scalars['UUID']
+            export type PubkeyBase58 = Scalars['PubkeyBase58']
+config:
+  contextType: Context
+  strictScalars: true
+  namingConvention:
+    enumValues: 'change-case-all#constantCase'
+  scalars:
+    Date: Date
+    Email: string
+    URI: string
+    UUID: string
+    PubkeyBase58: string
+    MetadataTraitValue: string|number

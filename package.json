@@ -1,6 +1,6 @@
 {
   "name": "@kairosnfts/dapp",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
@@ -8,18 +8,23 @@
     "dist"
   ],
   "scripts": {
+    "generate:graphql": "graphql-codegen --config codegen.yml",
     "postinstall": "yarn run build",
     "build": "tsc"
   },
   "dependencies": {
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
+    "graphql": "^16.6.0",
     "js-cookie": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "^3.2.3",
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/typescript": "^2.8.7",
     "eslint": "^8.0.1",
     "eslint-config-next": "^13.3.0",
     "eslint-config-prettier": "^8.8.0"

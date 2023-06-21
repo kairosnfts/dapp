@@ -31,16 +31,12 @@ export type OnBidErrorArgs = {
   apolloError?: { message: string }
 }
 export enum EmbeddedRequestKind {
-  PLACE_BID = 'PLACE_BID',
   DESTROY_SESSION = 'DESTROY_SESSION',
   CHECK_COOKIE_INTEGRITY = 'CHECK_COOKIE_INTEGRITY',
 }
 
 export enum EmbeddedResponseKind {
   POP_UP_EXIT = 'POP_UP_EXIT',
-  PLACE_BID_START = 'PLACE_BID_START',
-  PLACE_BID_SUCCESS = 'PLACE_BID_SUCCESS',
-  PLACE_BID_ERROR = 'PLACE_BID_ERROR',
   UPDATE_SESSION = 'UPDATE_SESSION',
   COOKIE_INTEGRITY = 'COOKIE_INTEGRITY',
 }

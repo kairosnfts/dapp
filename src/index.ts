@@ -249,12 +249,15 @@ const KairosInternal = {
    * @param nftId
    */
   startBid: (nftId: string) => {
-    window.open(
-      `${ROOT_URLS[KairosInternal.env]}/${
-        KairosInternal.slug
-      }/nft/${nftId}/checkout`,
-      '_self'
-    )
+    const uri = `${ROOT_URLS[KairosInternal.env]}/${
+      KairosInternal.slug
+    }/nft/${nftId}/checkout`
+    KairosInternal.hasLogs &&
+      console.log(
+        `%cKairos redirecting to checkout: ${uri}`,
+        'background: #13A35C; color: white'
+      )
+    window.open(uri, '_self')
   },
 
   destroySession: async () => {

@@ -152,7 +152,10 @@ const KairosInternal = {
           expires: 14, // days
         }
       )
-      window.history.replaceState({}, '', window.location.pathname)
+      const currentUrl = window.location.href
+      const url = new URL(currentUrl)
+      url.searchParams.delete(KairosInternal.kairosSessionCookieName)
+      window.history.replaceState({}, '', url.href)
     }
   },
 

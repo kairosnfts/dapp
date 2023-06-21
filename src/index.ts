@@ -5,8 +5,6 @@ import {
   type DeferPromise,
   EmbeddedRequestKind,
   EmbeddedResponseKind,
-  type OnBidErrorArgs,
-  type OnBidSuccessArgs,
 } from './types'
 
 const ROOT_URLS = {
@@ -23,7 +21,6 @@ const KairosInternal = {
   kairosCookieDomain: '',
   slug: undefined,
   hasLogs: true,
-  bidDefer: undefined as DeferPromise<OnBidSuccessArgs | OnBidErrorArgs>,
   integrityDefer: undefined as DeferPromise<boolean>,
   onLogIn: undefined as () => void,
   onLogOut: undefined as () => void,
@@ -104,28 +101,7 @@ const KairosInternal = {
     if (event.data.kind === EmbeddedResponseKind.POP_UP_EXIT) {
       iframe.style.pointerEvents = 'none'
       iframe.style.display = 'none'
-      KairosInternal.bidDefer = undefined
       document.body.removeAttribute('overflow')
-    } else if (event.data.kind === EmbeddedResponseKind.PLACE_BID_START) {
-      iframe.style.pointerEvents = 'unset'
-      iframe.style.display = 'block'
-      document.body.style.overflow = 'hidden'
-    } else if (event.data.kind === EmbeddedResponseKind.PLACE_BID_SUCCESS) {
-      KairosInternal.bidDefer?.resolve(args)
-      KairosInternal.bidDefer = undefined
-      KairosInternal.hasLogs &&
-        console.log(
-          `%cPlace bid success ${{ args }}`,
-          'background: #13A35C; color: white'
-        )
-    } else if (event.data.kind === EmbeddedResponseKind.PLACE_BID_ERROR) {
-      KairosInternal.bidDefer?.reject(args)
-      KairosInternal.bidDefer = undefined
-      KairosInternal.hasLogs &&
-        console.log(
-          `%cPlace bid error ${{ args }}`,
-          'background: #ED5C40; color: white'
-        )
     } else if (event.data.kind === EmbeddedResponseKind.UPDATE_SESSION) {
       Cookies.set(
         KairosInternal.kairosSessionCookieName,
@@ -176,7 +152,10 @@ const KairosInternal = {
           expires: 14, // days
         }
       )
-      window.history.replaceState({}, '', window.location.pathname)
+      const currentUrl = window.location.href
+      const url = new URL(currentUrl)
+      url.searchParams.delete(KairosInternal.kairosSessionCookieName)
+      window.history.replaceState({}, '', url.href)
     }
   },
 
@@ -250,7 +229,6 @@ const KairosInternal = {
     iframe.style.pointerEvents = 'none'
     iframe.style.display = 'none'
     document.body.removeAttribute('overflow')
-    KairosInternal.bidDefer = undefined
   },
 
   /**
@@ -270,28 +248,19 @@ const KairosInternal = {
   },
 
   /**
-   * Shows the bid pop up for the specified nftId
+   * Opens the checkout route for the given nftId
    * @param nftId
    */
-  startBid: async (nftId: string) => {
-    if (KairosInternal.bidDefer) throw new Error('startBid already started')
-    const iframe = await KairosInternal.getOrCreateIframe()
-    if (KairosInternal.getSessionCookie()) {
-      await KairosInternal.checkCookieIntegrity()
-    }
-    const isLoginRequired = !KairosInternal.getSessionCookie()
-    KairosInternal.postIframeMessage(iframe, EmbeddedRequestKind.PLACE_BID, {
-      nftId,
-      isLoginRequired,
-    })
-    KairosInternal.bidDefer = KairosInternal.defer()
+  startBid: (nftId: string) => {
+    const uri = `${ROOT_URLS[KairosInternal.env]}/${
+      KairosInternal.slug
+    }/nft/${nftId}/checkout`
     KairosInternal.hasLogs &&
       console.log(
-        `%cKairos bid start %cnftId: ${nftId}`,
-        'color: #6E45E3;',
-        'color: white; background: #6E45E3;'
+        `%cKairos redirecting to checkout: ${uri}`,
+        'background: #13A35C; color: white'
       )
-    return await KairosInternal.bidDefer
+    window.open(uri, '_self')
   },
 
   destroySession: async () => {
